@@ -1,0 +1,13 @@
+{
+  "name": "contact-tracing",
+  "version": "1.0.0",
+  "repository": "https://github.com/Conflux-Network-Global/contact-tracing.git",
+  "license": "MIT",
+  "scripts": {
+    "test": "truffle test"
+  },
+  "devDependencies": {
+    "ganache-cli": "^6.9.1",
+    "truffle": "^5.1.29"
+  }
+}
