@@ -1,8 +1,12 @@
 pragma solidity ^0.6.0;
 
 contract Registration {
-    mapping(address => address) public individualContracts;
-    mapping(address => address) public payloadMap;
+    mapping(address => address) private individualContracts;
+    mapping(address => address) private payloadMap;
+    mapping(address => uint256) private rewardTimestamp;
+    event NewPayload(address payload);
+
+    constructor() public payable {} //payable constructor for initial funding
 
     function newRegistration() external returns (address) {
         require(getIndividual() == address(0), "newRegistration: address is alredy registered");
@@ -10,7 +14,6 @@ contract Registration {
         Individual newContract = new Individual(msg.sender);
 
         individualContracts[msg.sender] = address(newContract);
-        return address(newContract);
     }
 
     function registerPayload(bytes calldata _payload) external returns (address) {
@@ -19,32 +22,43 @@ contract Registration {
         //get address from payload
         bytes32 payload = keccak256(_payload);
         address user = address(bytes20(payload));
+        require(payloadMap[user] == address(0), "registerPayload: payload address already taken");
 
         payloadMap[user] = individualContracts[msg.sender];
-
-        return user;
+        reward();
+        emit NewPayload(user);
     }
 
-    function checkHealth(address personalPayload, address contactPayload) external view returns (bool) {
+    function checkHealth(address personalPayload, address contactPayload) view external returns (bool) {
         require(payloadMap[personalPayload] == individualContracts[msg.sender], "checkHealth: invalid personalPayload");
         require(payloadMap[contactPayload] != address(0), "checkHealth: invalid contactPayload");
 
         address contractAddress = payloadMap[contactPayload];
         Individual indContract = Individual(contractAddress);
         return indContract.checkStatus(personalPayload);
-
     }
 
     function getIndividual() public view returns (address) {
         return individualContracts[msg.sender];
     }
+
+    function reward() private {
+        if (now > rewardTimestamp[msg.sender] + 1 days) {
+            rewardTimestamp[msg.sender] = now;
+            msg.sender.transfer(100000);
+        }
+    }
+
+    //payable contract to be able to receive later funding
+    receive () external payable {}
 }
 
 contract Individual {
-    address public owner;
-    mapping (address => uint256) public _balances;
-    bool public healthy;
-    address public registrationAddress;
+    address private owner;
+    mapping (address => uint256) private _balances;
+    bool private healthy;
+    address private registrationAddress;
+    event NewContact(address contact);
 
     constructor(address _owner) public {
         owner = _owner;
@@ -68,7 +82,7 @@ contract Individual {
 
         //log contact
         _balances[user] = newBalance;
-        return user;
+        emit NewContact(user);
     }
 
     function toggleHealth() external onlyOwner{

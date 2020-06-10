@@ -7,7 +7,9 @@
     "test": "truffle test"
   },
   "devDependencies": {
+    "bn.js": "^5.1.2",
     "ganache-cli": "^6.9.1",
-    "truffle": "^5.1.29"
+    "truffle": "^5.1.29",
+    "truffle-assertions": "^0.9.2"
   }
 }
