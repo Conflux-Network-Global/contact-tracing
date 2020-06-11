@@ -95,4 +95,8 @@ contract Individual {
 
         return healthy;
     }
+
+    function getStatus() external view onlyOwner returns (bool) {
+      return healthy;
+    }
 }

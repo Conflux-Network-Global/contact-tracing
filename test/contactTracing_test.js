@@ -126,4 +126,10 @@ contract("Contact tracing flow", async (accounts) => {
       reg.checkHealth.call(ind0Hash[1], ind1Hash[0], user0)
     ); //contact did not recieve users token (does not return health)
   });
+
+  it("getStatus has proper visibility control", async () => {
+    await truffleAssert.reverts(ind0.getStatus(user1));
+    const health = await ind0.getStatus.call(user0);
+    expect(health).to.be.true;
+  })
 });
