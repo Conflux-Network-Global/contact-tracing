@@ -11,6 +11,9 @@ function App() {
   const [state, set] = React.useState(0);
   const page = { state, set };
   const [provider, setProvider] = React.useState();
+  const [regContract, setRegContract] = React.useState();
+  const [contractObj, setContract] = React.useState();
+  const indContract = { contractObj, setContract };
 
   React.useEffect(() => {
     if (!!provider) {
@@ -19,16 +22,18 @@ function App() {
         abi,
         address: addresses.registration,
       });
-      contract.getIndividual.call().then((res) => console.log(res));
+      setRegContract(contract);
     }
   }, [provider]);
 
   return (
     <div className="App">
-      <CardContainer page={page}>
-        {page.state === 0 && <ConnectPage set={setProvider} />}
-        {page.state === 1 && <ContactPage />}
-        {page.state === 2 && <HealthPage />}
+      <CardContainer page={page} ind={contractObj}>
+        {page.state === 0 && (
+          <ConnectPage set={setProvider}/>
+        )}
+        {page.state === 1 && <ContactPage reg={regContract} ind={indContract}/>}
+        {page.state === 2 && <HealthPage reg={regContract} ind={contractObj}/>}
       </CardContainer>
     </div>
   );

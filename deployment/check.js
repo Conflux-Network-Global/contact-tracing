@@ -9,7 +9,7 @@ async function main() {
   // const defaultGasPrice = util.unit("GDrip", "Drip")(10)
 
   const cfx = new Conflux({
-    url: 'http://testnet-jsonrpc.conflux-chain.org:12537',
+    url: 'http://mainnet-jsonrpc.conflux-chain.org:12537',
     defaultGasPrice: 100,
     defaultGas: 2000000,
     logger: console,
@@ -26,19 +26,23 @@ async function main() {
   // create contract instance
   const contract = cfx.Contract({
     abi: require('../demo-front-end/src/assets/registration-abi.json'), //can be copied from remix
-    bytecode: require('./registration-bytecode.json'), //on remix, found in compilation details => web3deploy => data (should be a hex string)
-    // address is empty and wait for deploy
+    address: "0x8fec5d693f1ac411a56204d0ac8ba987788a6efe"
   });
 
-  // // estimate deploy contract gas use
-  const estimate = await contract.constructor().estimateGasAndCollateral();
-  console.log(JSON.stringify(estimate)); // {"gasUsed":"175050","storageCollateralized":"64"}
+  // const receipt = await contract.newRegistration().sendTransaction({from: account}).confirmed();
+  // console.log(receipt);
 
-  // deploy the contract, and get `contractCreated`
-  const receipt = await contract.constructor()
-    .sendTransaction({from: account})
-    .confirmed();
+  const indAddress = await contract.getIndividual().call({from: account});
+  console.log(indAddress);
+
+  const indContract = cfx.Contract({
+    abi: require('../demo-front-end/src/assets/individual-abi.json'), //can be copied from remix
+    address: indAddress
+  })
+
+  const receipt = await indContract.toggleHealth().sendTransaction({from: account})
   console.log(receipt);
+
   //testnet address: 0x87618fe9114449057de3f185d018ddf433bb808c (having issues with ConfluxPortal on testnet)
   //mainnet address: 0x8fec5d693f1ac411a56204d0ac8ba987788a6efe
 }

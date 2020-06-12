@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
-export default function CardContainer({ children, page }) {
+export default function CardContainer({ children, page, ind }) {
   return (
     <Card>
       <CardContent>
@@ -20,14 +20,14 @@ export default function CardContainer({ children, page }) {
       </CardContent>
       <CardActions className="CardContainer-Buttons">
         <IconButton
-          // disabled={page.state === 0 || page.state === 1}
+          disabled={page.state === 0 || page.state === 1}
           onClick={() => page.set(page.state - 1)}
           color="primary"
         >
           <ChevronLeftIcon />
         </IconButton>
         <IconButton
-          // disabled={page.state === 0 || page.state === 2}
+          disabled={page.state === 0 || page.state === 2 || !ind}
           onClick={() => page.set(page.state + 1)}
           color="primary"
         >
