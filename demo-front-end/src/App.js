@@ -15,6 +15,7 @@ function App() {
   const [contractObj, setContract] = React.useState();
   const indContract = { contractObj, setContract };
 
+  //checking if conflux portal is installed
   React.useEffect(() => {
     if (!!provider) {
       set(1);

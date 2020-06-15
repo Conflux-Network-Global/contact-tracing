@@ -2,14 +2,20 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { util } from "js-conflux-sdk";
+import moment from "moment";
+import "./HealthPage.css";
 
 const HealthPage = ({ reg, ind }) => {
   const [healthy, setHealthy] = React.useState("--");
   const [status, setStatus] = React.useState("--");
   const [trigger, setTrigger] = React.useState(false);
+  const [checking, setChecking] = React.useState(false);
 
+  //checking personal health status when page loads
   React.useEffect(() => {
+    setHealthy("--");
     ind
       .getStatus()
       .call({ from: window.conflux.selectedAddress })
@@ -23,11 +29,12 @@ const HealthPage = ({ reg, ind }) => {
     return value === "No" || value === "Infected Contact" ? "error" : "inherit";
   };
 
+  //transaction parameters to toggle health
   const toggleHealth = async () => {
     const data = ind.toggleHealth().data;
-    console.log(data);
-    const estimate = await ind.toggleHealth().estimateGasAndCollateral();
-    console.log(estimate);
+    // console.log(data);
+    // const estimate = await ind.toggleHealth().estimateGasAndCollateral();
+    // console.log(estimate);
 
     const tx = {
       to: ind.address,
@@ -43,8 +50,38 @@ const HealthPage = ({ reg, ind }) => {
     setTimeout(() => setTrigger(!trigger), 10000);
   };
 
-  const checkContacts = () => {
-    setStatus("Infected Contact");
+  //button handler for checking contacts
+  const checkContacts = async () => {
+    setChecking(true);
+    let data = window.localStorage.getItem("contactTracing");
+    data = JSON.parse(data);
+    let dataNew = [];
+    let alert = false;
+    if (!!data) {
+      for (let i = 0; i < data.length; i++) {
+        try {
+          const res = await reg
+            .checkHealth(data[i].personal, data[i].contact)
+            .call({ from: window.conflux.selectedAddress });
+
+          //filtering out old data
+          console.log(moment().diff(data[i].timestamp, "days"));
+          if (moment().diff(data[i].timestamp, "days") < 28) {
+            dataNew.push(data[i]);
+          }
+
+          //set alert to true if infected contact (could use algorithm to determine risk level)
+          if (!res) {
+            alert = true;
+          }
+        } catch (e) {
+          console.log("Invalid pair");
+        }
+      }
+    }
+    const output = alert ? "Infected Contact" : "No Issues"
+    setStatus(output);
+    setChecking(false);
   };
 
   return (
@@ -54,7 +91,15 @@ const HealthPage = ({ reg, ind }) => {
           Please report any updates to your health:
         </Typography>
         <Typography variant="h6" color={colorPicker(healthy)}>
-          Healthy: {healthy}
+          Healthy:{" "}
+          {healthy === "--" ? (
+            <CircularProgress
+              variant="indeterminate"
+              className="health-circularProgress"
+            />
+          ) : (
+            healthy
+          )}
         </Typography>
         <Button
           variant="contained"
@@ -71,7 +116,15 @@ const HealthPage = ({ reg, ind }) => {
           Check if contact has been infected:{" "}
         </Typography>
         <Typography variant="h6" color={colorPicker(status)}>
-          Status: {status}
+          Status:{" "}
+          {checking ? (
+            <CircularProgress
+              variant="indeterminate"
+              className="health-circularProgress"
+            />
+          ) : (
+            status
+          )}
         </Typography>
         <Button
           variant="contained"

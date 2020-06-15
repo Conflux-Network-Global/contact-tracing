@@ -14,6 +14,7 @@ const ConnectPage = ({set}) => {
     window.open("https://portal.conflux-chain.org/");
   };
 
+  //handler for connecting to conflux portal
   const connect = async () => {
     await window.conflux.enable();
     set(window['conflux']);
@@ -22,7 +23,7 @@ const ConnectPage = ({set}) => {
   return (
     <React.Fragment>
       <Typography variant="h6">
-        To get started please {installed ? "connect to " : "install "}
+        To get started, please {installed ? "connect to " : "install "}
         ConfluxPortal
       </Typography>
       {installed ? (

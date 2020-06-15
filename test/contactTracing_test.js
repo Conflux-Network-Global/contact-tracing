@@ -99,15 +99,14 @@ contract("Contact tracing flow", async (accounts) => {
   });
 
   it("toggleHealth works without reverting when called correctly", async () => {
-      await truffleAssert.passes(ind1.toggleHealth(user1));
-  })
+    await truffleAssert.passes(ind1.toggleHealth(user1));
+  });
 
   it("toggleHealth reverts when not called by owner", async () => {
     await truffleAssert.reverts(ind0.toggleHealth(user1));
-  })
+  });
 
   it("checkHealth returns health status for individual when matching payloads are submitted", async () => {
-
     const health1 = await reg.checkHealth.call(ind0Hash[0], ind1Hash[0], user0);
     const health0 = await reg.checkHealth.call(ind1Hash[0], ind0Hash[0], user1);
 
@@ -131,5 +130,5 @@ contract("Contact tracing flow", async (accounts) => {
     await truffleAssert.reverts(ind0.getStatus(user1));
     const health = await ind0.getStatus.call(user0);
     expect(health).to.be.true;
-  })
+  });
 });
