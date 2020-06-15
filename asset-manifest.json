@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/contact-tracing/static/css/main.064e25a2.chunk.css",
-    "main.js": "/contact-tracing/static/js/main.8d8c7c40.chunk.js",
-    "main.js.map": "/contact-tracing/static/js/main.8d8c7c40.chunk.js.map",
+    "main.js": "/contact-tracing/static/js/main.6eb0c319.chunk.js",
+    "main.js.map": "/contact-tracing/static/js/main.6eb0c319.chunk.js.map",
     "runtime-main.js": "/contact-tracing/static/js/runtime-main.77ce8369.js",
     "runtime-main.js.map": "/contact-tracing/static/js/runtime-main.77ce8369.js.map",
     "static/js/2.b9e0f80b.chunk.js": "/contact-tracing/static/js/2.b9e0f80b.chunk.js",
     "static/js/2.b9e0f80b.chunk.js.map": "/contact-tracing/static/js/2.b9e0f80b.chunk.js.map",
     "index.html": "/contact-tracing/index.html",
-    "precache-manifest.b44da6d721b5c01ef10c0d6549de93da.js": "/contact-tracing/precache-manifest.b44da6d721b5c01ef10c0d6549de93da.js",
+    "precache-manifest.935763923a3aa6378c0d4a81eb45643c.js": "/contact-tracing/precache-manifest.935763923a3aa6378c0d4a81eb45643c.js",
     "service-worker.js": "/contact-tracing/service-worker.js",
     "static/css/main.064e25a2.chunk.css.map": "/contact-tracing/static/css/main.064e25a2.chunk.css.map",
     "static/js/2.b9e0f80b.chunk.js.LICENSE.txt": "/contact-tracing/static/js/2.b9e0f80b.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.77ce8369.js",
     "static/js/2.b9e0f80b.chunk.js",
     "static/css/main.064e25a2.chunk.css",
-    "static/js/main.8d8c7c40.chunk.js"
+    "static/js/main.6eb0c319.chunk.js"
   ]
 }

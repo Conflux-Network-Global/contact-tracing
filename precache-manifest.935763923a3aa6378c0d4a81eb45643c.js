@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df1fa960dcdf641c33f88d62c75801e7",
+    "revision": "d8182e3e48ad8e1b94e98f2e899afe2e",
     "url": "/contact-tracing/index.html"
   },
   {
-    "revision": "7cbd470ced317acbcb61",
+    "revision": "3fd44d1962556b2c92e0",
     "url": "/contact-tracing/static/css/main.064e25a2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/contact-tracing/static/js/2.b9e0f80b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7cbd470ced317acbcb61",
-    "url": "/contact-tracing/static/js/main.8d8c7c40.chunk.js"
+    "revision": "3fd44d1962556b2c92e0",
+    "url": "/contact-tracing/static/js/main.6eb0c319.chunk.js"
   },
   {
     "revision": "3ce587da00f652dea034",
