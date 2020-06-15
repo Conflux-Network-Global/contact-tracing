@@ -101,10 +101,15 @@ const ContactPage = ({ reg, ind }) => {
     contractABI,
     contractInst
   ) => {
-    // setPersonalTx(true);
+    //empty check
+    if (obj.text === "") {
+      return
+    }
+
     setObj((prev) => {
       return { ...prev, tx: true };
     });
+
     const inputHex = util.format.hex(Buffer.from(obj.text));
     const data = web3.eth.abi.encodeFunctionCall(
       contractABI.filter((func) => func.name === functionCall)[0],
