@@ -8,15 +8,15 @@ contract Registration {
 
     constructor() public payable {} //payable constructor for initial funding
 
-    function newRegistration() external returns (address) {
-        require(getIndividual() == address(0), "newRegistration: address is alredy registered");
+    function newRegistration() external {
+        require(getIndividual() == address(0), "newRegistration: address is already registered");
 
         Individual newContract = new Individual(msg.sender);
 
         individualContracts[msg.sender] = address(newContract);
     }
 
-    function registerPayload(bytes calldata _payload) external returns (address) {
+    function registerPayload(bytes calldata _payload) external {
         require(getIndividual() != address(0), "registerPayload: unregistered address");
 
         //get address from payload
@@ -71,7 +71,7 @@ contract Individual {
         _;
     }
 
-    function contact(bytes calldata _payload) external onlyOwner returns (address) {
+    function contact(bytes calldata _payload) external onlyOwner {
         //get address from payload
         bytes32 payload = keccak256(_payload);
         address user = address(bytes20(payload));
