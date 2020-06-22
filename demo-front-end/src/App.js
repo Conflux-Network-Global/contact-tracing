@@ -4,8 +4,14 @@ import CardContainer from "./components/CardContainer/CardContainer";
 import ConnectPage from "./components/ConnectPage/ConnectPage";
 import ContactPage from "./components/ContactPage/ContactPage";
 import HealthPage from "./components/HealthPage/HealthPage";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 const abi = require("./assets/registration-abi.json");
 const addresses = require("./assets/addresses.json");
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
 
 function App() {
   const [state, set] = React.useState(0);

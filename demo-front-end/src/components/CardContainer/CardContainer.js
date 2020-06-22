@@ -11,7 +11,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 export default function CardContainer({ children, page, ind }) {
   return (
-    <Card>
+    <Card raised={true}>
       <CardContent>
         <Box className="CardContainer-Box">
           <Typography variant="h4">Conflux Contact Tracing</Typography>
@@ -22,14 +22,14 @@ export default function CardContainer({ children, page, ind }) {
         <IconButton
           disabled={page.state === 0 || page.state === 1}
           onClick={() => page.set(page.state - 1)}
-          color="primary"
+          color="inherit"
         >
           <ChevronLeftIcon />
         </IconButton>
         <IconButton
           disabled={page.state === 0 || page.state === 2 || !ind}
           onClick={() => page.set(page.state + 1)}
-          color="primary"
+          color="inherit"
         >
           <ChevronRightIcon />
         </IconButton>
