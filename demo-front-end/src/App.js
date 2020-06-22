@@ -34,15 +34,17 @@ function App() {
   }, [provider]);
 
   return (
-    <div className="App">
-      <CardContainer page={page} ind={contractObj}>
-        {page.state === 0 && (
-          <ConnectPage set={setProvider}/>
-        )}
-        {page.state === 1 && <ContactPage reg={regContract} ind={indContract}/>}
-        {page.state === 2 && <HealthPage reg={regContract} ind={contractObj}/>}
-      </CardContainer>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <div className="App">
+        <CardContainer page={page} ind={contractObj}>
+          {page.state === 0 && (
+            <ConnectPage set={setProvider}/>
+          )}
+          {page.state === 1 && <ContactPage reg={regContract} ind={indContract}/>}
+          {page.state === 2 && <HealthPage reg={regContract} ind={contractObj}/>}
+        </CardContainer>
+      </div>
+    </ThemeProvider>
   );
 }
 
